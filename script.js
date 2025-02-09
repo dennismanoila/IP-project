@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ////////////////////////////////////////////////////
     const registerBtn = document.getElementById('register');
     const loginBtn = document.getElementById('login');
-    const container = document.querySelector('.container'); // Ensure this selector matches your container's actual class or ID.
-
+    const container = document.querySelector('.container'); 
     if (registerBtn) {
         registerBtn.addEventListener('click', () => {
             container.classList.add("active");
@@ -282,13 +281,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (deleteWorkoutButton) {
             deleteWorkoutButton.addEventListener("click", function() {
                 if (deleteMode) {
-                    // Cancel delete mode
                     deleteMode = false;
                     workoutTitle.textContent = "Your workouts";
                     deleteWorkoutButton.textContent = "Delete Workout";
                     addWorkoutButton.classList.remove("disabled");
                 } else {
-                    // Enter delete mode
                     deleteMode = true;
                     workoutTitle.textContent = "Choose Workout";
                     deleteWorkoutButton.textContent = "Cancel";
@@ -298,28 +295,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         if (workoutsListContainer) {
-            // Attach event listeners to the workouts list
             workoutsListContainer.addEventListener("click", function(event) {
                 const clickedDiv = event.target.closest('.workout-title-date');
     
-                if (!clickedDiv) return; // Exit if no workout is clicked
+                if (!clickedDiv) return; 
     
                 if (deleteMode) {
-                    // Delete the workout
                     const workoutName = clickedDiv.querySelector('.wname').innerText;
                     const workoutDate = clickedDiv.querySelector('.wdate').innerText;
     
-                    // Remove the workout from localStorage
                     let workouts = JSON.parse(localStorage.getItem('workouts')) || [];
                     workouts = workouts.filter(workout =>
                         !(workout.workoutName === workoutName && workout.workoutDate === workoutDate)
                     );
                     localStorage.setItem('workouts', JSON.stringify(workouts));
     
-                    // Remove the workout from the DOM
                     clickedDiv.remove();
     
-                    // Clear the details panel
                     const date = document.querySelector(".workout-exercises-container > h4");
                     const title = document.querySelector(".workout-exercises-container > h2");
                     const exerciseList = document.querySelector(".workout-exercises");
@@ -328,7 +320,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     title.innerHTML = ""; // Clear the title
                     exerciseList.innerHTML = ""; // Clear the exercise list
     
-                    // Reset to initial state
                     deleteMode = false;
                     workoutTitle.textContent = "Your workouts";
                     deleteWorkoutButton.textContent = "Delete Workout";
